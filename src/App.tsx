@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container, Navbar, Nav, Row, Col } from "react-bootstrap"
+import { LeftMenu } from "./components/LeftMenu/LeftMenu"
+import { NavLink, Outlet } from "react-router-dom"
+import { getHotelList } from "./interfaces";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+
+
+export const Layout = () => {
+  getHotelList();
+  console.log(getHotelList)
+    return (
+        <>
+            <Navbar bg="info" variant="dark" >
+                <Container>
+                    <Navbar.Brand>
+                    Туристическое агенство
+                    </Navbar.Brand>
+                    <Nav className="me-auto">
+                        <NavLink to={'/'} className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
+                            Главная страница
+                        </NavLink>
+                        <NavLink to={'last_minute_page'} className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
+                           Горячие туры
+                        </NavLink>
+                        <NavLink to={'about'} className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
+                            О нас
+                        </NavLink>
+                    </Nav>
+                </Container>
+            </Navbar>
+            <Container>
+                <Row style={{ marginTop: '10px'}}>
+                    <Col sm={2} md={2} lg={2}>
+                        <LeftMenu />
+                    </Col>
+                    <Col sm={10} md={10} lg={8}>
+                        <Outlet />
+                    </Col>
+                </Row>
+            </Container>
+        </>
+    );
+};
