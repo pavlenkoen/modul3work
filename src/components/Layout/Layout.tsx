@@ -1,5 +1,5 @@
 import { Container, Navbar, Nav, Row, Col } from "react-bootstrap";
-import { LeftMenu } from "./components/LeftMenu/LeftMenu";
+import { LeftMenu } from "../LeftMenu/LeftMenu";
 import { NavLink, Outlet } from "react-router-dom";
 
 export const Layout = () => {
@@ -32,6 +32,18 @@ export const Layout = () => {
               }
             >
               О нас
+            </NavLink>
+            <NavLink
+              style={{
+                position: "absolute",
+                right: "0",
+              }}
+              to={"user_login"}
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Войти
             </NavLink>
           </Nav>
         </Container>

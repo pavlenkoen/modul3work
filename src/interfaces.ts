@@ -1,17 +1,24 @@
-export interface iHotel {
-  id?: number;
-  name?: string;
+export interface IHotel {
+  id: number;
+  name: string;
   description?: string;
   imgSrc?: string;
   price?: number;
   country?: string;
   hot?: boolean;
-  countryListId?: number;
+  countryListId: number;
   rusName?: string;
 }
 
-export interface iCountry {
-  name?: string;
+export interface ICountry {
+  id: number;
+  name: string;
   description?: string;
   imgSrc?: string;
+}
+
+export interface IUser {
+  id?: number;
+  email?: any;
+  password?: string;
 }

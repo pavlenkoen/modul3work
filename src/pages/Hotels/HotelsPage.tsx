@@ -1,15 +1,18 @@
 import { useLocation } from "react-router-dom";
-import { List } from "../../components/List/List";
-import { iHotel } from "../../interfaces";
+import { IHotel, ICountry } from "../../interfaces";
 import { useState, useEffect } from "react";
-import { getHotelList } from "../../dataHandlers/dataHandlers";
+import { getHotelList, getCountryList } from "../../dataHandlers/dataHandlers";
+import { HotelsList } from "../../components/List/HotelsList";
 
 export const HotelsPage = () => {
-  const [hotels, setHotels] = useState<iHotel[]>([]);
+  const [hotels, setHotels] = useState<IHotel[]>([]);
+  const [countries, setCountries] = useState<ICountry[]>([]);
 
   useEffect(() => {
-    const data = getHotelList();
-    data.then((res) => setHotels(res.data));
+    const countryData = getCountryList();
+    countryData.then((res) => setCountries(res.data));
+    const hotelData = getHotelList();
+    hotelData.then((res) => setHotels(res.data));
   }, []);
 
   const { hash } = useLocation();
@@ -23,48 +26,22 @@ export const HotelsPage = () => {
         veniam, nulla ipsum iste quibusdam sunt odio dolor nesciunt corrupti
         facilis.
       </p>
-      {hash !== "" ? (
-        <>
-          {hash === "#Egypt" && (
-            <List
-              listName={"Египет"}
-              ordersArray={hotels.filter(
-                (country) => country.countryListId === 1
-              )}
-            />
-          )}
-          {hash === "#Turkey" && (
-            <List
-              listName={"Турция"}
-              ordersArray={hotels.filter(
-                (country) => country.countryListId === 2
-              )}
-            />
-          )}
-          {hash === "#Thailand" && (
-            <List
-              listName={"Тайланд"}
-              ordersArray={hotels.filter(
-                (country) => country.countryListId === 3
-              )}
-            />
-          )}
-          {hash === "#UAE" && (
-            <List
-              listName={"ОАЭ"}
-              ordersArray={hotels.filter(
-                (country) => country.countryListId === 4
-              )}
-            />
-          )}
-          <List listName={"Дополнительная информация"} />
-        </>
-      ) : (
-        <>
-          <List listName={"Где вы хотели бы побывать?"} ordersArray={hotels} />
-          <List listName={"Прочее"} />
-        </>
-      )}
+      {countries.map((country) => {
+        return (
+          <>
+            {hash === `#${country.id}` && (
+              <HotelsList
+                key={country.id}
+                listName={`${country.name}`}
+                ordersArray={hotels.filter(
+                  (hotel) => hotel.countryListId === country.id
+                )}
+              />
+            )}
+          </>
+        );
+      })}
+      <HotelsList listName={"Дополнительная информация"} />
     </>
   );
 };

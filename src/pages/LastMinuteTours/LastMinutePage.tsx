@@ -1,30 +1,23 @@
-import { List } from "../../components/List/List";
-import axios from "axios";
-import { iHotel } from "../../interfaces";
+import { HotelsList } from "../../components/List/HotelsList";
+import { IHotel } from "../../interfaces";
 import { useState, useEffect } from "react";
+import { getHotelList } from "../../dataHandlers/dataHandlers";
 
 export const LastMinutePage = () => {
-  const [hotels, setHotels] = useState<iHotel[]>([]);
-
-  const getHotelList = async () => {
-    const { data } = await axios
-      .create({
-        baseURL: "http://localhost:3334/api/hotel_list/",
-      })
-      .get("/");
-    setHotels(data);
-  };
+  const [hotels, setHotels] = useState<IHotel[]>([]);
 
   useEffect(() => {
-    getHotelList();
+    const data = getHotelList();
+    data.then((res) => setHotels(res.data));
   }, []);
+
   return (
     <>
-      <List
+      <HotelsList
         listName={"Успейте приобрести тур своей мечты"}
         ordersArray={hotels.filter((hotel) => hotel.hot === true)}
       />
-      <List listName={"Дополнительная информация"} />
+      <HotelsList listName={"Дополнительная информация"} />
     </>
   );
 };

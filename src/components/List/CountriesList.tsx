@@ -1,13 +1,13 @@
 import { Row, Col, Alert } from "react-bootstrap";
-import { Card } from "../Card/Card";
-import { iHotel } from "../../interfaces";
+import { CountryCard } from "../Card/CountryCard";
+import { ICountry } from "../../interfaces";
 
-interface Props {
+interface IListProps {
   listName: string;
-  ordersArray?: iHotel[];
+  ordersArray?: ICountry[];
 }
 
-export const List = (props: Props) => {
+export const CountryList = (props: IListProps) => {
   return (
     <>
       <h5>{props.listName}</h5>
@@ -15,7 +15,7 @@ export const List = (props: Props) => {
         {props.ordersArray && props.ordersArray !== null ? (
           props.ordersArray.map((order) => (
             <Col key={order.id}>
-              <Card order={order} />
+              <CountryCard order={order} />
             </Col>
           ))
         ) : (

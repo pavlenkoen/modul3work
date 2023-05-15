@@ -1,15 +1,30 @@
 import { Nav } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { ICountry } from "../../interfaces";
+import { getCountryList } from "../../dataHandlers/dataHandlers";
 
 export const LeftMenu = () => {
+  const [countries, setCountries] = useState<ICountry[]>([]);
+
+  useEffect(() => {
+    const data = getCountryList();
+    data.then((res) => setCountries(res.data));
+  }, []);
   return (
     <>
       <h5>Направления</h5>
-      <Nav className="flex-column">
-        <Nav.Link href="/countries#Egypt">Египет</Nav.Link>
-        <Nav.Link href="/countries#Turkey">Турция</Nav.Link>
-        <Nav.Link href="/countries#Thailand">Тайланд</Nav.Link>
-        <Nav.Link href="/countries#UAE">ОАЭ</Nav.Link>
-      </Nav>
+
+      {countries.map((country) => {
+        return (
+          <>
+            <Nav key={country.id} className="flex-column">
+              <Nav.Link href={`/country#${country.id}`}>
+                {country.name}
+              </Nav.Link>
+            </Nav>
+          </>
+        );
+      })}
     </>
   );
 };
