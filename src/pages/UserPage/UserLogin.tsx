@@ -15,11 +15,7 @@ export const UserLoginPage = () => {
       .post("/login", { email, password });
     setToken(response.data.token);
     console.log(token);
-    /*const newToken = await axios
-      .create({
-        baseURL: "http://localhost:3334/api/user",
-      })
-      .get("/check"); */
+
     setMessage("Вам удалось авторизоваться");
   };
 
