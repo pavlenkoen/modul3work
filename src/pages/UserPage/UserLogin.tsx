@@ -2,10 +2,6 @@ import { Form, Button, NavLink } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 
-interface IToken {
-  token: string;
-}
-
 export const UserLoginPage = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();

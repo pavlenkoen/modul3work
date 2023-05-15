@@ -18,7 +18,7 @@ export interface ICountry {
 }
 
 export interface IUser {
-  id?: number;
-  email?: any;
-  password?: string;
+  id: number;
+  email: any;
+  password: string;
 }
